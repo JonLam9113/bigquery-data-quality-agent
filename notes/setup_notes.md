@@ -59,3 +59,16 @@ List projects:
 ```bash
 gcloud projects list
 ```
+
+## Python Interpreter Debugging
+
+If `python` does not use the virtual environment correctly, run commands with the venv Python directly:
+
+```bash
+.venv/bin/python -m pip list
+.venv/bin/python src/query_runner.py
+
+Then run:
+
+```bash
+git status
