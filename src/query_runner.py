@@ -1,23 +1,23 @@
 from google.cloud import bigquery
 
 
-def run_query():
+def load_sql(file_path):
+    with open(file_path, "r") as file:
+        return file.read()
+
+
+def run_query(sql_file):
     client = bigquery.Client()
 
-    query = """
-    SELECT
-        1 AS test_value,
-        CURRENT_TIMESTAMP() AS current_time
-    """
+    query = load_sql(sql_file)
 
     query_job = client.query(query)
 
     results = query_job.result()
 
     for row in results:
-        print(f"test_value: {row.test_value}")
-        print(f"current_time: {row.current_time}")
+        print(f"{row.traffic_source}: {row.session_count} sessions")
 
 
 if __name__ == "__main__":
-    run_query()
+    run_query("sql/top_traffic_sources.sql")
